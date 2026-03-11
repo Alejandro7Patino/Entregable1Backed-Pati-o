@@ -9,5 +9,27 @@
     "stock": 10,
     "category": "General",
     "thumbnails": []
+  },
+  {
+    "id": 2,
+    "title": "Hola",
+    "price": 12,
+    "description": "auto",
+    "code": "1773244547241",
+    "status": true,
+    "stock": 10,
+    "category": "general",
+    "thumbnails": []
+  },
+  {
+    "id": 3,
+    "title": "Celular",
+    "price": 15000,
+    "description": "auto",
+    "code": "1773244597443",
+    "status": true,
+    "stock": 10,
+    "category": "general",
+    "thumbnails": []
   }
 ]

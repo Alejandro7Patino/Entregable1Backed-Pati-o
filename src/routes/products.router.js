@@ -18,6 +18,10 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const newProduct = await manager.addProduct(req.body);
+  const io = req.app.get("io");
+  const products = await manager.getProducts();
+  io.emit("updateProducts", products);
+
   res.status(201).json(newProduct);
 });
 
@@ -30,6 +34,10 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   await manager.deleteProduct(req.params.pid);
+  const io = req.app.get("io");
+  const products = await manager.getProducts();
+  io.emit("updateProducts", products);
+  
   res.json({ message: "Producto eliminado" });
 });
 
