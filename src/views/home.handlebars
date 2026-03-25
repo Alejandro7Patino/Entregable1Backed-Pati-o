@@ -1,9 +1,47 @@
-<h1>Lista de Productos</h1>
+<h1>Lista de productos</h1>
 
 <ul>
-{{#each products}}
-<li>
-{{this.title}} - ${{this.price}}
-</li>
-{{/each}}
+    {{#each products}}
+        <li>
+            <strong>{{title}}</strong> - ${{price}}
+            <br>
+            <a href="/products/{{_id}}">Ver detalle</a>
+            <br>
+            <button onclick="addToCart('{{_id}}')">Agregar al carrito</button>
+        </li>
+    {{/each}}
 </ul>
+
+<hr>
+
+<div>
+    {{#if hasPrevPage}}
+        <a href="/?page={{prevPage}}">Página anterior</a>
+    {{/if}}
+
+    <span> | Página actual | </span>
+
+    {{#if hasNextPage}}
+        <a href="/?page={{nextPage}}">Página siguiente</a>
+    {{/if}}
+</div>
+
+<script>
+async function addToCart(pid) {
+    
+    let cartId = localStorage.getItem("cartId");
+
+    if (!cartId) {
+        let result = await fetch("/api/carts", { method: "POST" });
+        let data = await result.json();
+        cartId = data._id;
+        localStorage.setItem("cartId", cartId);
+    }
+
+    await fetch(`/api/carts/${cartId}/products/${pid}`, {
+        method: "POST"
+    });
+
+    alert("Producto agregado al carrito");
+}
+</script>

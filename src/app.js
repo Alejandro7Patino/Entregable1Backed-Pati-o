@@ -1,11 +1,21 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import { Server } from "socket.io";
 import http from "http";
 import { engine } from "express-handlebars";
 
+
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
+
+import mongoose from "mongoose";
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB conectado"))
+  .catch(err => console.error("Error al conectar MongoDB:", err));
 
 const app = express();
 const PORT = 8080;
